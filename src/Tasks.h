@@ -18,6 +18,8 @@ map<string, TaskFunc> tasks;
 
 double PI = 3.14159265358979323846;
 
+streamsize defaultPrecision = cout.precision();
+
 void task1_1() {
 	cout << "Sviatoslav Popov";
 }
@@ -201,8 +203,8 @@ void task2_5() {
 
 
 // Function to calculate 'm' using homework task formula
-float calcZaemFormula(float S, float n, float p) {
-	float r = p / 100;
+double calcZaemFormula(double S, double n, double p) {
+	double r = p / 100;
 	return ((S * r * pow(1 + r, n)) / (12 * (pow(1 + r, n) - 1)));
 }
 
@@ -238,21 +240,13 @@ void task3_1() { // 1000000 15 20     <20000
 }
 
 void task3_2() { // 100000 1000 2 года | [1, 100]
-	float S, n, p, m, temp;
+	double S, n, m, p;
 
 	cout << "Enter S: ";
 	cin >> S;
 
 	if (S == 0) {
 		cout << "Please don't use 0 as S. Idk why but it will return NAN or INF. So... Yeah";
-		return;
-	}
-
-	cout << "Enter n: ";
-	cin >> n;
-
-	if (n == -1) {
-		cout << "Please don't use -1 as n. Idk why but it will return NAN or INF. So... Yeah";
 		return;
 	}
 
@@ -264,7 +258,36 @@ void task3_2() { // 100000 1000 2 года | [1, 100]
 		return;
 	}
 
+	cout << "Enter n: ";
+	cin >> n;
 
+	if (n == -1) {
+		cout << "Please don't use -1 as n. Idk why but it will return NAN or INF. So... Yeah";
+		return;
+	}
+
+	double temp;
+	p = 1;
+	double step = 1;
+
+	while ((temp = calcZaemFormula(S, n, p)) != m) {
+		if (isnan(temp) || isinf(temp)) {
+			cout << "Unable to find exact value due to C++ limitations" << endl;
+			cout << "Found closest p" << endl;
+			break;
+		}
+		if (temp > m) {
+			p -= step;
+			step *= 0.1;
+		}
+		p += step;
+		//cout << "p = " << p << " | temp = " << temp << endl;
+	}
+
+	
+	cout.precision(14);
+	cout << "P = " << fixed << p;
+	cout.precision(defaultPrecision);
 }
 
 void task3_3() {
