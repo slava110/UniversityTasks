@@ -5,6 +5,8 @@
 #include <cmath>
 #include <fstream>
 #include <map>
+//#include <limits>
+
 
 // Bad practice but fine for university tasks
 using namespace std;
@@ -19,6 +21,15 @@ map<string, TaskFunc> tasks;
 double PI = 3.14159265358979323846;
 
 streamsize defaultPrecision = cout.precision();
+
+bool inputInvalid(string type) {
+	if (!cin) {
+		cout << "Invalid input, use valid " << type << " instead please";
+		cin.clear();
+		return true;
+	}
+	return false;
+}
 
 void task1_1() {
 	cout << "Sviatoslav Popov";
@@ -330,6 +341,245 @@ void task3_5() {
 	cout << "Res: " << str;
 }
 
+void task4_1() {
+	cout << "Enter 10 numbers:" << endl;
+
+	string input;
+	ofstream out("4_1.txt");
+	for (int i = 0; i < 10; i++) {
+		int input;
+		cin >> input;
+		if (inputInvalid("integer")) {
+			out.close();
+			remove("4_1.txt");
+			return;
+		}
+		out << input << "\n";
+	}
+	out.close();
+
+	ifstream in("4_1.txt");
+
+	int sum = 0;
+	string line;
+	while (getline(in, line)) {
+		sum += stoi(line);
+	}
+
+	in.close();
+
+	cout << "Sum: " << sum << endl;
+
+	cout << "Press enter to delete file" << endl;
+
+	system("pause");
+	remove("4_1.txt");
+}
+
+int getSign(int num) {
+	if (num == 0)
+		return 0;
+	return num / abs(num);
+}
+
+void task4_2() {
+	cout << "Enter number: ";
+
+	int num;
+	cin >> num;
+
+	if (inputInvalid("integer"))
+		return;
+
+	cout << "Sign: " << getSign(num);
+}
+
+float recSq(float a, float b) {
+	return a * b;
+}
+
+float triSq(float a, float h) {
+	if (a == 0 || h == 0)
+		return 0;
+	return (a * h) / 2;
+}
+
+float cirSq(float r) {
+	return PI * r * r;
+}
+
+void task4_3() {
+	float a, b, h, r;
+
+	cout << "What do you want to calculate?" << endl;
+	cout << "Options: 1 (rectangle), 2 (triangle), 3 (circle)" << endl;
+	cout << "> ";
+	int input;
+	cin >> input;
+
+	if (inputInvalid("integer"))
+		return;
+
+	switch (input) {
+		case 1:
+			cout << "Enter a: ";
+			cin >> a;
+
+			if (inputInvalid("float"))
+				return;
+
+			cout << "Enter b: ";
+			cin >> b;
+
+			if (inputInvalid("float"))
+				return;
+
+			cout << "Res: " << recSq(a, b);
+			
+			break;
+		case 2:
+			cout << "Enter a: ";
+			cin >> a;
+
+			if (inputInvalid("float"))
+				return;
+
+			cout << "Enter h: ";
+			cin >> h;
+
+			if (inputInvalid("float"))
+				return;
+
+			cout << "Res: " << triSq(a, h);
+			break;
+		case 3:
+			cout << "Enter r: ";
+			cin >> r;
+
+			if (inputInvalid("float"))
+				return;
+
+			cout << "Res: " << cirSq(r);
+			break;
+		default:
+			cout << "Function not found!";
+	}
+}
+
+void task4_4() {
+	cout << "Былую славу 1912 года";
+}
+
+// Thanks to StackOverflow
+void task4_5() {
+	int size = 80, height = 21;
+
+	// Start with an empty chart (lots of spaces and a line in the middle)
+	vector<string> chart(height, string(size, ' '));
+	chart[height / 2] = string(size, '-');
+
+	// Then just put x-es where the function should be plotted
+	for (int i = 0; i < size; ++i) {
+		chart[static_cast<int>(round(10 * sin(i / 4.5) + 10))][i] = 'x';
+	}
+
+	// and print the whole shebang
+	for (auto&& s : chart) {
+		cout << s << '\n';
+	}
+}
+
+void task4_6() {
+	int num = 0;
+	string input;
+
+	cin >> input;
+
+	int sign = 1;
+
+	for (char& c : input) {
+		switch (c) {
+			case 'I':
+				num += 1 * sign;
+				break;
+			case 'V':
+				num += 5 * sign;
+				break;
+			case 'X':
+				num += 10 * sign;
+				break;
+			case 'L':
+				num += 50 * sign;
+				break;
+			case 'C':
+				num += 100 * sign;
+				break;
+			case 'D':
+				num += 500 * sign;
+				break;
+			case 'M':
+				num += 1000 * sign;
+				break;
+			case '-':
+				sign = -1;
+				continue;
+		}
+		if (sign < 0) {
+			sign = 1;
+		}
+	}
+
+	cout << "Res: " << num;
+}
+
+int recFormula(int m, int i, int c, int prevS) {
+	return (m * prevS + i) % c;
+}
+
+void task4_7() {
+	int m, i, c, s, amount;
+	cout << "Random generator!" << endl;
+	cout << "Enter m: ";
+	cin >> m;
+
+	if (inputInvalid("integer"))
+		return;
+	
+	cout << "Enter i: ";
+	cin >> i;
+
+	if (inputInvalid("integer"))
+		return;
+
+	cout << "Enter c: ";
+	cin >> c;
+
+	if (inputInvalid("integer"))
+		return;
+
+	cout << "Enter amount: ";
+	cin >> amount;
+
+	if (inputInvalid("integer"))
+		return;
+
+	if (amount < 1) {
+		cout << "Enter positive non-zero number as amount!" << endl;
+		return;
+	}
+
+	s = 0;
+
+	for (int n = 0; n < amount; n++) {
+		cout << (s = recFormula(m, i, c, s)) << endl;
+	}
+}
+
+void task4_8() {
+
+}
+
+
 // This is garbage language
 // Why there's no reflection
 // Pls let me code in Java/Kotlin
@@ -351,4 +601,13 @@ void setupTasks() {
 	tasks["3.3"] = task3_3;
 	tasks["3.4"] = task3_4;
 	tasks["3.5"] = task3_5;
+
+	tasks["4.1"] = task4_1;
+	tasks["4.2"] = task4_2;
+	tasks["4.3"] = task4_3;
+	tasks["4.4"] = task4_4;
+	tasks["4.5"] = task4_5;
+	tasks["4.6"] = task4_6;
+	tasks["4.7"] = task4_7;
+	tasks["4.8"] = task4_8;
 }
