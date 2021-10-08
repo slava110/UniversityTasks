@@ -12,6 +12,8 @@ int main() {
 	system("chcp 65001");
 	system("title University Tasks");
 
+	system("cls");
+
 	setupTasks(); // Because C++ doesn't have reflection, bruh
 
 	regex inputRegex{ R"(\d+\.\d+|exit)" };

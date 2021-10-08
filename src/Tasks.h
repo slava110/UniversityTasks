@@ -302,7 +302,7 @@ void task3_2() { // 100000 1000 2 года | [1, 100]
 }
 
 void task3_3() {
-	std::cout << std::ifstream("text.txt").rdbuf();
+	cout << ifstream("text.txt").rdbuf();
 }
 
 void task3_4() {
@@ -576,6 +576,91 @@ void task4_7() {
 }
 
 void task4_8() {
+	// I need to copy this from different branch
+}
+
+void task5_1() {
+	int a, b, res;
+
+	cout << "Enter a: ";
+	cin >> a;
+	cout << "Enter b: ";
+	cin >> b;
+
+	a = abs(a);
+	b = abs(b);
+
+	cout << "Substract or divide? (press s to use substraction method or d to use division)" << endl;
+	switch (_getch()) {
+	case 's':
+	case 'S':
+		while (a != 0 && b != 0) {
+			if (a > b)
+				a = a % b;
+			else
+				b = b % a;
+		}
+		res = a + b;
+		break;
+	case 'd':
+	case 'D':
+		while (a != b) {
+			if (a > b)
+				a = a - b;
+			else
+				b = b - a;
+		}
+		res = a;
+		break;
+	default:
+		cout << "I SAID PRESS S OR D LISTEN TO ME YOU...";
+		return;
+	}
+
+	cout << "Res: " << res;
+}
+
+void task5_2() {
+	int max;
+	cout << "Enter max value: ";
+	cin >> max;
+
+	bool suc;
+
+	for (int i = 0; i < max; i++) {
+		suc = true;
+		for (int num = 2; num < i; num++) {
+			if (i % num == 0) {
+				suc = false;
+				break;
+			}
+		}
+		if (suc) {
+			cout << i << " ";
+		}
+		
+	}
+}
+
+void task5_3() {
+	ofstream out("5_3_a.txt");
+	ifstream in("5_3_b.txt");
+
+	out << "Cookies" << endl;
+	out << "Yay" << endl;
+
+	out.close();
+	
+	string line;
+
+	while (getline(in, line)) {
+		cout << line;
+	}
+
+	in.close();
+}
+
+void task5_4() {
 
 }
 
@@ -610,4 +695,8 @@ void setupTasks() {
 	tasks["4.6"] = task4_6;
 	tasks["4.7"] = task4_7;
 	tasks["4.8"] = task4_8;
+
+	tasks["5.1"] = task5_1;
+	tasks["5.2"] = task5_2;
+	tasks["5.3"] = task5_3;
 }
