@@ -660,8 +660,161 @@ void task5_3() {
 	in.close();
 }
 
-void task5_4() {
+int sumDigits(int num) {
+	int res = 0, remainder;
+	while (num > 0) {
+		remainder = num % 10;
+		res = res + remainder;
+		num = num / 10;
+	}
+	return res;
+}
 
+// Rows
+
+// 13
+void task5_4() {
+	int m;
+
+	while (true) {
+		cout << "Enter m: ";
+		cin >> m;
+
+		if (m >= 27) {
+			cout << "Number should be lower than 27!" << endl;
+		}
+		else {
+			break;
+		}
+	}
+
+	cout << "Processing..." << endl;
+
+	for (int i = 100; i < 1000; i++) {
+		if (sumDigits(i) == m) {
+			cout << i << endl;
+		}
+	}
+
+	cout << "Done";
+}
+
+// 14
+void task5_5() {
+	cout << "*** Student height analysis ***" << endl;
+	cout << "Enter height (cm) and press <Enter>." << endl;
+	cout << "Enter '0' to finish input and start analysis" << endl;
+
+	vector<int> arr;
+	int in;
+
+	while (true) {
+		cout << "-> ";
+		cin >> in;
+		if (in == 0) {
+			break;
+		}
+		arr.push_back(in);
+	}
+
+	int sum = 0;
+
+	for (auto const& el : arr) {
+		sum += el;
+	}
+
+	float avHeight = sum / arr.size();
+
+	cout << "Average height: " << avHeight << " cm" << endl;
+
+	int higherCount = 0;
+
+	for (auto const& el : arr) {
+		if (el > avHeight) {
+			higherCount++;
+		}
+	}
+
+	cout << higherCount << " people are higher than average";
+}
+
+// Files
+// 25
+
+int randInt(int min, int max) {
+	return min + (rand() % (max - min + 1));
+}
+
+void generateFile() {
+	int seed;
+
+	cout << "Enter seed for file generation (any integer number): ";
+	cin >> seed;
+
+	srand(seed);
+
+	ofstream out("files.txt");
+
+	for (int i = 0; i < 100; i++) {
+		for (int j = 0; j < 15; j++) {
+			out << static_cast<char>(randInt(33, 126)); // https://en.m.wikipedia.org/wiki/File:ASCII-Table-wide.svg
+		}
+		out << endl;
+	}
+
+	out.close();
+}
+
+// files 25
+void task6() {
+	generateFile();
+
+	bool loop = true;
+
+	cout << "File generated. Press 'e' to open it or press 'a' to start analysis" << endl;
+
+	while (loop) {
+		switch (_getch()) {
+		case 'e':
+			system("notepad \"files.txt\"");
+			break;
+		case 'a':
+			loop = false;
+			break;
+		}
+	}
+
+	cout << "Analysing..." << endl;
+
+	ifstream in("files.txt");
+
+	int amount = 0;
+
+	string line;
+	while (getline(in, line)) {
+		bool fail = false;
+		int prevCh = 0;
+
+		for (char& ch : line) {
+			int chCode = (int)ch;
+			if (prevCh != 0) {
+				if (prevCh != chCode - 1) {
+					fail = true;
+					break;
+				}
+			}
+			prevCh = chCode;
+		}
+
+		if (!fail && !line.empty()) {
+			cout << "Found: " << line << endl;
+			amount++;
+		}
+	}
+
+	in.close();
+
+	cout << "Found " << amount << " strings with sorted characters";
 }
 
 
@@ -699,4 +852,8 @@ void setupTasks() {
 	tasks["5.1"] = task5_1;
 	tasks["5.2"] = task5_2;
 	tasks["5.3"] = task5_3;
+	tasks["5.4"] = task5_4;
+	tasks["5.5"] = task5_5;
+
+	tasks["6.0"] = task6;
 }
