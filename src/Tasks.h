@@ -7,6 +7,8 @@
 #include <map>
 //#include <limits>
 
+#include "Utils.h"
+
 
 // Bad practice but fine for university tasks
 using namespace std;
@@ -17,8 +19,6 @@ map<string, TaskFunc> tasks;
 
 
 //========== Actual code ==========
-
-double PI = 3.14159265358979323846;
 
 streamsize defaultPrecision = cout.precision();
 
