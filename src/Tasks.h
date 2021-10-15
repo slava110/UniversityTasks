@@ -8,6 +8,7 @@
 //#include <limits>
 
 #include "Utils.h"
+#include "Spinners.h"
 
 
 // Bad practice but fine for university tasks
@@ -643,8 +644,8 @@ void task5_2() {
 }
 
 void task5_3() {
-	ofstream out("5_3_a.txt");
-	ifstream in("5_3_b.txt");
+	ofstream out("5_3.txt");
+	ifstream in("5_3.txt");
 
 	out << "Cookies" << endl;
 	out << "Yay" << endl;
@@ -654,7 +655,7 @@ void task5_3() {
 	string line;
 
 	while (getline(in, line)) {
-		cout << line;
+		cout << line << endl;
 	}
 
 	in.close();
@@ -699,7 +700,7 @@ void task5_4() {
 	cout << "Done";
 }
 
-// 14
+// 19
 void task5_5() {
 	cout << "*** Student height analysis ***" << endl;
 	cout << "Enter height (cm) and press <Enter>." << endl;
@@ -817,6 +818,46 @@ void task6() {
 	cout << "Found " << amount << " strings with sorted characters";
 }
 
+//void perestanovka(int[] balls, int m, int n) {
+//	int m = balls[]
+//	if (i == m) {
+//		int size = sizeof(balls) / sizeof(balls[0]);
+//		for (int j = 0; j < size; j++) {
+//			cout << balls[j];
+//		}
+//	}
+//	else {
+//		int temp = balls[i];
+//		balls[i] = balls[m];
+//		balls[m] = temp;
+//
+//	}
+//}
+//
+//void task7() {
+//	int n = 5;
+//	int balls[n] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+//
+//	perestanovka(balls, 1, n)
+//}
+
+int pressFToPayRespect(int n) {
+	if (n == 1 || n == 2)
+		return 1;
+	return pressFToPayRespect(n - 1) + pressFToPayRespect(n - 2);
+}
+
+// Fibonnachi
+void miraculousNumbers() {
+	int num;
+	
+	cout << "Which number do you want?" << endl;
+	cout << "> ";
+	
+	cin >> num;
+
+	cout << "Res: " << pressFToPayRespect(num);
+}
 
 // This is garbage language
 // Why there's no reflection
@@ -856,4 +897,7 @@ void setupTasks() {
 	tasks["5.5"] = task5_5;
 
 	tasks["6.0"] = task6;
+
+	tasks["7.0"] = miraculousNumbers;
+	tasks["8.0"] = spinners1;
 }
