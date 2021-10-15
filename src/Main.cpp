@@ -50,7 +50,6 @@ int main() {
 			cout << "Wrong input! Expected task id (format: '<task group>.<task id>') or 'exit' command!";
 		}
 		cout << endl;
-		system("pause");
 		system("cls");
 	}
 }
