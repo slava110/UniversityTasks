@@ -5,6 +5,7 @@
 #include <cmath>
 #include <fstream>
 #include <map>
+#include <vector>
 //#include <limits>
 
 #include "Utils.h"
@@ -580,7 +581,7 @@ void task4_8() {
 	// I need to copy this from different branch
 }
 
-void task5_1() {
+void taskEuclid() {
 	int a, b, res;
 
 	cout << "Enter a: ";
@@ -621,7 +622,7 @@ void task5_1() {
 	cout << "Res: " << res;
 }
 
-void task5_2() {
+void taskEratosthenes() {
 	int max;
 	cout << "Enter max value: ";
 	cin >> max;
@@ -643,7 +644,7 @@ void task5_2() {
 	}
 }
 
-void task5_3() {
+void taskTextFiles() {
 	ofstream out("5_3.txt");
 	ifstream in("5_3.txt");
 
@@ -674,7 +675,7 @@ int sumDigits(int num) {
 // Rows
 
 // 13
-void task5_4() {
+void taskRows1() {
 	int m;
 
 	while (true) {
@@ -701,7 +702,7 @@ void task5_4() {
 }
 
 // 19
-void task5_5() {
+void taskRows2() {
 	cout << "*** Student height analysis ***" << endl;
 	cout << "Enter height (cm) and press <Enter>." << endl;
 	cout << "Enter '0' to finish input and start analysis" << endl;
@@ -767,7 +768,7 @@ void generateFile() {
 }
 
 // files 25
-void task6() {
+void taskFiles() {
 	generateFile();
 
 	bool loop = true;
@@ -890,14 +891,15 @@ void setupTasks() {
 	tasks["4.7"] = task4_7;
 	tasks["4.8"] = task4_8;
 
-	tasks["5.1"] = task5_1;
-	tasks["5.2"] = task5_2;
-	tasks["5.3"] = task5_3;
-	tasks["5.4"] = task5_4;
-	tasks["5.5"] = task5_5;
+	tasks["euclid"] = taskEuclid;
+	tasks["eratosthene"] = taskEratosthenes;
+	tasks["textFiles"] = taskTextFiles;
+	tasks["rows.1"] = taskRows1;
+	tasks["rows.2"] = taskRows2;
 
-	tasks["6.0"] = task6;
+	tasks["files"] = taskFiles;
 
-	tasks["7.0"] = miraculousNumbers;
-	tasks["8.0"] = spinners1;
+	tasks["miraculousNums"] = miraculousNumbers;
+	tasks["spinners.1"] = spinners1;
+	tasks["spinners.2"] = spinners2;
 }
