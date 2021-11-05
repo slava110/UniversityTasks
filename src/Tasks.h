@@ -547,52 +547,71 @@ void task4_7() {
 }
 
 void task4_8() {
-	float A[3][4] = {
-		{5, 2, 0, 10},
-		{3, 5, 2, 5},
-		{20, 0, 0, 0}
-	};
+	int A[3][4] = { {5, 2, 0, 10} ,{3, 5 , 2, 5} ,{20, 0 ,0, 0} };
+	int B[4][2] = { {1.2, 0.5}, {2.8, 0.4}, {5, 1}, {2, 1.5} };
+	int c[4][2] = {};
 
-	float B[4][2] = {
-		{1.2, 0.5},
-		{2.8, 0.4},
-		{5, 1},
-		{2, 1.5}
-	};
+	cout << "Result of multiplication:" << endl;
 
-	//define order of the resultant matrix 
-	float res[3][2] = {};
-
-	//Multiply the elements of A and B
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 2; j++) {
-			float sum = 0;
-			for (int k = 0; k < 4; k++) {
-				sum += (A[i][k] * B[k][j]);
+	for (int row = 0; row < 3; row++) {
+		for (int col = 0; col < 2; col++) {
+			// Multiply the row of A by the column of B to get the row, column of product.
+			for (int inner = 0; inner < 4; inner++) {
+				c[row][col] += A[row][inner] * B[inner][col];
 			}
-			res[i][j] = sum;
-		}
-	}
-
-	//output the resultant matrix
-	cout << "Resultant Matrix: \n";
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 2; j++) {
-			cout << res[i][j] << "\t";
+			cout << c[row][col] << "  ";
 		}
 		cout << "\n";
 	}
+	int i;
+	int max = 0;
+	int v1 = 0;
+	int v2 = 0;
+	int min = 100;
+	for (i = 0; i < 3; i++) {
+		if (c[i][0] > max) {
+			max = c[i][0];
+			v1 = i + 1;
+		}
+		if (c[i][0] < min) {
+			min = c[i][0];
+			v2 = i + 1;
+		}
 
-	float maxIncome = 0, maxComission = 0;
-	for (int i = 0; i < 3; i++) {
-		maxIncome = max(res[i][0], maxIncome);
-		maxComission = max(res[i][1], maxComission);
 	}
+	cout << endl;
+	cout << "1) Max income: " << v1 << endl;
+	cout << "   Min income: " << v2 << endl;
 
-	cout << "Max income: " << maxIncome;
-	cout << "Max comission: " << maxComission;
+	max = 0;
+	v1 = 0;
+	v2 = 0;
+	min = 100;
 
-	//...
+	for (i = 0; i < 4; i++) {
+		if (c[i][1] > max) {
+			max = c[i][1];
+			v1 = i + 1;
+		}
+		if (c[i][1] < min) {
+			min = c[i][1];
+			v2 = i + 1;
+		}
+	}
+	cout << "2) Max comission: " << v1 << endl;
+	cout << "   Min comission: " << v2 << endl;
+
+	int sum1 = 0;
+	for (i = 0; i < 3; i++) {
+		sum1 += c[i][0];
+	}
+	cout << "3) Summary income: " << sum1 << endl;
+	int sum2 = 0;
+	for (i = 0; i < 3; i++) {
+		sum2 += c[i][1];
+	}
+	cout << "4) Summary comissions: " << sum2 << endl;
+	cout << "5) Total cash flow: " << sum1 + sum2;
 }
 
 int fromNS(string numRaw, int sourceNS) {
