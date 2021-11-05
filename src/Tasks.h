@@ -4,8 +4,8 @@
 #include <string>
 #include <cmath>
 #include <fstream>
-#include <map>
 #include <vector>
+#include <iomanip>
 //#include <limits>
 
 #include "Utils.h"
@@ -15,23 +15,9 @@
 // Bad practice but fine for university tasks
 using namespace std;
 
-// Create map with tasks
-typedef void (*TaskFunc)();
-map<string, TaskFunc> tasks;
-
-
 //========== Actual code ==========
 
 streamsize defaultPrecision = cout.precision();
-
-bool inputInvalid(string type) {
-	if (!cin) {
-		cout << "Invalid input, use valid " << type << " instead please";
-		cin.clear();
-		return true;
-	}
-	return false;
-}
 
 void task1_1() {
 	cout << "Sviatoslav Popov";
@@ -46,7 +32,7 @@ void task1_2() {
 	cout << "Res: " << endl;
 	cout << a + b << endl;
 	cout << a - b << endl;
-	cout << a * b << endl;
+	cout << a * b;
 	b != 0 ? cout << to_string(a / b) : cout << "Division by zero restricted. We're sorry :c";
 }
 
@@ -77,7 +63,6 @@ void task1_4() {
 
 	if (a == 0) {
 		calcBXC(b, c);
-		cout << endl;
 		return;
 	}
 
@@ -191,9 +176,6 @@ void task2_3() {
 	}
 
 	cout << (log(b - y) * sqrt(b - x));
-
-	cout << endl;
-	system("pause");
 }
 
 void task2_4() {
@@ -351,11 +333,6 @@ void task4_1() {
 	for (int i = 0; i < 10; i++) {
 		int input;
 		cin >> input;
-		if (inputInvalid("integer")) {
-			out.close();
-			remove("4_1.txt");
-			return;
-		}
 		out << input << "\n";
 	}
 	out.close();
@@ -372,9 +349,9 @@ void task4_1() {
 
 	cout << "Sum: " << sum << endl;
 
-	cout << "Press enter to delete file" << endl;
+	cout << "Press any key to delete file" << endl;
 
-	system("pause");
+	_getch();
 	remove("4_1.txt");
 }
 
@@ -389,9 +366,6 @@ void task4_2() {
 
 	int num;
 	cin >> num;
-
-	if (inputInvalid("integer"))
-		return;
 
 	cout << "Sign: " << getSign(num);
 }
@@ -419,22 +393,13 @@ void task4_3() {
 	int input;
 	cin >> input;
 
-	if (inputInvalid("integer"))
-		return;
-
 	switch (input) {
 		case 1:
 			cout << "Enter a: ";
 			cin >> a;
 
-			if (inputInvalid("float"))
-				return;
-
 			cout << "Enter b: ";
 			cin >> b;
-
-			if (inputInvalid("float"))
-				return;
 
 			cout << "Res: " << recSq(a, b);
 			
@@ -443,23 +408,14 @@ void task4_3() {
 			cout << "Enter a: ";
 			cin >> a;
 
-			if (inputInvalid("float"))
-				return;
-
 			cout << "Enter h: ";
 			cin >> h;
-
-			if (inputInvalid("float"))
-				return;
 
 			cout << "Res: " << triSq(a, h);
 			break;
 		case 3:
 			cout << "Enter r: ";
 			cin >> r;
-
-			if (inputInvalid("float"))
-				return;
 
 			cout << "Res: " << cirSq(r);
 			break;
@@ -469,7 +425,32 @@ void task4_3() {
 }
 
 void task4_4() {
-	cout << "Былую славу 1912 года";
+	for (int i = 0; i < 13; ++i)
+	{
+		if (i < 7) {
+			if (0 == i % 2) {
+				for (int j = 0; j < 4; ++j)
+				{
+					std::cout << "  *";
+				}
+				std::cout.width(60);
+				std::cout << std::setw(60) << std::setfill('/');
+			}
+			else {
+				std::cout << " ";
+				for (int j = 0; j < 4; ++j)
+					std::cout << "*  ";
+			}
+			std::cout << '\n';
+		}
+
+	}
+
+	for (int i = 0; i < 18; ++i)
+		if (0 == i % 2)
+			std::cout << std::setw(72) << std::setfill(' ') << '\n';
+		else
+			std::cout << std::setw(72) << std::setfill('/') << '\n';
 }
 
 // Thanks to StackOverflow
@@ -543,27 +524,15 @@ void task4_7() {
 	cout << "Random generator!" << endl;
 	cout << "Enter m: ";
 	cin >> m;
-
-	if (inputInvalid("integer"))
-		return;
 	
 	cout << "Enter i: ";
 	cin >> i;
 
-	if (inputInvalid("integer"))
-		return;
-
 	cout << "Enter c: ";
 	cin >> c;
 
-	if (inputInvalid("integer"))
-		return;
-
 	cout << "Enter amount: ";
 	cin >> amount;
-
-	if (inputInvalid("integer"))
-		return;
 
 	if (amount < 1) {
 		cout << "Enter positive non-zero number as amount!" << endl;
@@ -578,48 +547,142 @@ void task4_7() {
 }
 
 void task4_8() {
-	float[4][3] A = {
-		{
-			5, 3, 20
-		},
-		{
-			2, 5, 0
-		},
-		{
-			0, 2, 0
-		},
-		{
-			10, 5, 0
-		}
+	float A[3][4] = {
+		{5, 2, 0, 10},
+		{3, 5, 2, 5},
+		{20, 0, 0, 0}
 	};
 
-	float[2][4] B = {
-		{
-			1.2, 2.8, 5, 2
-		},
-		{
-			0.5, 0.4, 1, 1.5
-		}
+	float B[4][2] = {
+		{1.2, 0.5},
+		{2.8, 0.4},
+		{5, 1},
+		{2, 1.5}
 	};
 
-	float C[4][3] = {};
+	//define order of the resultant matrix 
+	float res[3][2] = {};
 
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 3; j++) {
-			C[i][j] = 0;
-			for (int k = 0; k < 3; k++) {
-				C[i][j] += A[i][k] * B[k][j];
+	//Multiply the elements of A and B
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 2; j++) {
+			float sum = 0;
+			for (int k = 0; k < 4; k++) {
+				sum += (A[i][k] * B[k][j]);
 			}
+			res[i][j] = sum;
 		}
 	}
 
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 3; j++) {
-			cout << C[i][j] << " ";
+	//output the resultant matrix
+	cout << "Resultant Matrix: \n";
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 2; j++) {
+			cout << res[i][j] << "\t";
 		}
 		cout << "\n";
 	}
+
+	float maxIncome = 0, maxComission = 0;
+	for (int i = 0; i < 3; i++) {
+		maxIncome = max(res[i][0], maxIncome);
+		maxComission = max(res[i][1], maxComission);
+	}
+
+	cout << "Max income: " << maxIncome;
+	cout << "Max comission: " << maxComission;
+
+	//...
 }
+
+int fromNS(string numRaw, int sourceNS) {
+	//cout << "fromNS(num: " << numRaw << " NS: " << sourceNS << ")" << endl;
+	int num = 0;
+
+	for (int i = 0; i < numRaw.length(); i++) {
+		int c = (int)numRaw[i];
+		int cur = 0;
+
+		if (c > 47 && c < 58) { // Numbers
+			cur = c - 48;
+			//cout << "[N]> toAdd = " << (c - 48) << " | cur = " << cur << endl;
+		}
+		else if (c > 64 && c < 91) { // Letters
+			cur = c - 55;
+			//cout << "[L]> toAdd = " << (c - 55) << " | cur = " << cur << endl;
+		}
+		else {
+			cout << "Found unsupported symbol: '" << static_cast<char>(c) << "'";
+			return -1;
+		}
+
+		num += cur * pow(sourceNS, numRaw.length() - 1 - i);
+	}
+
+	//cout << "fromNS(...) = " << num << endl;
+
+	return num;
+}
+
+string toNS(int num, int targetNS) {
+	//cout << "toNS(num: " << num << " NS: " << targetNS << ")" << endl;
+
+	if (num < 0)
+		return "";
+
+	string res = "";
+	
+	while (num > 0) {
+		int rest = num % targetNS;
+
+		if (rest >= 0 && rest <= 10) {
+			res = static_cast<char>(rest + 48) + res;
+			//cout << "[N]> toAdd = " << (rest + 48) << " | res = " << res << endl;
+		}
+		else if (rest >= 10 && rest <= 36) {
+			res = static_cast<char>(rest + 55) + res;
+			//cout << "[L]> toAdd = " << (rest + 55) << " | res = " << res << endl;
+		}
+		else {
+			cout << "Rest was too big while tried to convert to target NS: " << rest;
+			return "";
+		}
+
+		num = num / targetNS;
+	}
+
+	//cout << "toNS(...) = " << res << endl;
+
+	return res;
+}
+
+void task4_9() {
+	int sourceNS, targetNS;
+	string numRaw, res;
+
+	cout << "Enter source NS: ";
+	cin >> sourceNS;
+
+	cout << "Enter target NS: ";
+	cin >> targetNS;
+
+	cout << "Enter number: ";
+	cin >> numRaw;
+
+	if (sourceNS == targetNS) {
+		res = numRaw;
+	}
+	else if (numRaw == "0") {
+		res = "0";
+	}
+	else {
+		res = toNS(fromNS(numRaw, sourceNS), targetNS);
+	}
+	if(!res.empty())
+		cout << "Res: " << res;
+}
+
+// Euclid
 
 void taskEuclid() {
 	int a, b, res;
@@ -662,6 +725,8 @@ void taskEuclid() {
 	cout << "Res: " << res;
 }
 
+// Eratosthene
+
 void taskEratosthenes() {
 	int max;
 	cout << "Enter max value: ";
@@ -683,6 +748,8 @@ void taskEratosthenes() {
 		
 	}
 }
+
+// Text files (12 and 13)
 
 void taskTextFiles() {
 	ofstream out("5_3.txt");
@@ -712,9 +779,7 @@ int sumDigits(int num) {
 	return res;
 }
 
-// Rows
-
-// 13
+// Rows 13
 void taskRows1() {
 	int m;
 
@@ -741,7 +806,7 @@ void taskRows1() {
 	cout << "Done";
 }
 
-// 19
+// Rows 19
 void taskRows2() {
 	cout << "*** Student height analysis ***" << endl;
 	cout << "Enter height (cm) and press <Enter>." << endl;
@@ -780,8 +845,7 @@ void taskRows2() {
 	cout << higherCount << " people are higher than average";
 }
 
-// Files
-// 25
+// Files 25
 
 int randInt(int min, int max) {
 	return min + (rand() % (max - min + 1));
@@ -807,7 +871,6 @@ void generateFile() {
 	out.close();
 }
 
-// files 25
 void taskFiles() {
 	generateFile();
 
@@ -859,8 +922,9 @@ void taskFiles() {
 	cout << "Found " << amount << " strings with sorted characters";
 }
 
+// Balls
+
 void perestanovka(int ballsAmount, int *amount, int step) { // step = 0, 1, 2, 3 | max = 10, 9, 8
-	
 	int max = ballsAmount - step;
 	for (int i = 0; i < max; i++) {
 		if (i == step + 1) {
@@ -880,13 +944,14 @@ void taskBalls() {
 	cout << "Res: " << amount;
 }
 
+// Fibonnachi
+
 int pressFToPayRespect(int n) {
 	if (n == 1 || n == 2)
 		return 1;
 	return pressFToPayRespect(n - 1) + pressFToPayRespect(n - 2);
 }
 
-// Fibonnachi
 void miraculousNumbers() {
 	int num;
 	
@@ -896,53 +961,4 @@ void miraculousNumbers() {
 	cin >> num;
 
 	cout << "Res: " << pressFToPayRespect(num);
-}
-
-// This is garbage language
-// Why there's no reflection
-// Pls let me code in Java/Kotlin
-void setupTasks() {
-	tasks["1.1"] = task1_1;
-	tasks["1.2"] = task1_2;
-	tasks["1.3"] = task1_3;
-	tasks["1.4"] = task1_4;
-	tasks["1.5"] = task1_5;
-
-	tasks["2.1"] = task2_1;
-	tasks["2.2"] = task2_2;
-	tasks["2.3"] = task2_3;
-	tasks["2.4"] = task2_4;
-	tasks["2.5"] = task2_5;
-
-	tasks["3.1"] = task3_1;
-	tasks["3.2"] = task3_2;
-	tasks["3.3"] = task3_3;
-	tasks["3.4"] = task3_4;
-	tasks["3.5"] = task3_5;
-
-	tasks["4.1"] = task4_1;
-	tasks["4.2"] = task4_2;
-	tasks["4.3"] = task4_3;
-	tasks["4.4"] = task4_4;
-	tasks["4.5"] = task4_5;
-	tasks["4.6"] = task4_6;
-	tasks["4.7"] = task4_7;
-	tasks["4.8"] = task4_8;
-
-	tasks["euclid"] = taskEuclid;
-	tasks["eratosthene"] = taskEratosthenes;
-	tasks["textFiles"] = taskTextFiles;
-	tasks["rows.1"] = taskRows1;
-	tasks["rows.2"] = taskRows2;
-
-	tasks["files"] = taskFiles;
-
-	tasks["miraculousNums"] = miraculousNumbers;
-	tasks["spinners.1"] = spinners1;
-	tasks["spinners.2"] = spinners2;
-	tasks["spinners.3"] = spinners3;
-	tasks["spinners.4"] = spinners4;
-	tasks["spinners.5"] = spinners5;
-
-	tasks["balls"] = taskBalls;
 }
