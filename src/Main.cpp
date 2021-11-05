@@ -3,6 +3,7 @@
 #include <conio.h>
 
 #include "Tasks.h"
+#include "Spinners.h"
 #include "Utils.h"
 
 using namespace std;

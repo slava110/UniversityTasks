@@ -578,7 +578,47 @@ void task4_7() {
 }
 
 void task4_8() {
-	// I need to copy this from different branch
+	float[4][3] A = {
+		{
+			5, 3, 20
+		},
+		{
+			2, 5, 0
+		},
+		{
+			0, 2, 0
+		},
+		{
+			10, 5, 0
+		}
+	};
+
+	float[2][4] B = {
+		{
+			1.2, 2.8, 5, 2
+		},
+		{
+			0.5, 0.4, 1, 1.5
+		}
+	};
+
+	float C[4][3] = {};
+
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 3; j++) {
+			C[i][j] = 0;
+			for (int k = 0; k < 3; k++) {
+				C[i][j] += A[i][k] * B[k][j];
+			}
+		}
+	}
+
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 3; j++) {
+			cout << C[i][j] << " ";
+		}
+		cout << "\n";
+	}
 }
 
 void taskEuclid() {
@@ -819,28 +859,26 @@ void taskFiles() {
 	cout << "Found " << amount << " strings with sorted characters";
 }
 
-//void perestanovka(int[] balls, int m, int n) {
-//	int m = balls[]
-//	if (i == m) {
-//		int size = sizeof(balls) / sizeof(balls[0]);
-//		for (int j = 0; j < size; j++) {
-//			cout << balls[j];
-//		}
-//	}
-//	else {
-//		int temp = balls[i];
-//		balls[i] = balls[m];
-//		balls[m] = temp;
-//
-//	}
-//}
-//
-//void task7() {
-//	int n = 5;
-//	int balls[n] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-//
-//	perestanovka(balls, 1, n)
-//}
+void perestanovka(int ballsAmount, int *amount, int step) { // step = 0, 1, 2, 3 | max = 10, 9, 8
+	
+	int max = ballsAmount - step;
+	for (int i = 0; i < max; i++) {
+		if (i == step + 1) {
+			*amount += 1;
+		}
+		else if(step != ballsAmount - 1) {
+			perestanovka(ballsAmount, amount, step + 1);
+		}
+	}
+}
+
+void taskBalls() {
+	int ballsAmount = 10, amount = 0;
+
+	perestanovka(ballsAmount, &amount, 0);
+
+	cout << "Res: " << amount;
+}
 
 int pressFToPayRespect(int n) {
 	if (n == 1 || n == 2)
@@ -902,4 +940,9 @@ void setupTasks() {
 	tasks["miraculousNums"] = miraculousNumbers;
 	tasks["spinners.1"] = spinners1;
 	tasks["spinners.2"] = spinners2;
+	tasks["spinners.3"] = spinners3;
+	tasks["spinners.4"] = spinners4;
+	tasks["spinners.5"] = spinners5;
+
+	tasks["balls"] = taskBalls;
 }
