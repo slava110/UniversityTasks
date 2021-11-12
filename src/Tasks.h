@@ -286,7 +286,14 @@ void task3_2() { // 100000 1000 2 года | [1, 100]
 }
 
 void task3_3() {
-	cout << ifstream("text.txt").rdbuf();
+	fstream fin("text.txt", fstream::in);
+
+	if (!fin.good()) {
+		cout << "File `text.txt` not found!";
+		return;
+	}
+
+	cout << fin.rdbuf();
 }
 
 void task3_4() {
@@ -294,7 +301,7 @@ void task3_4() {
 	fstream fin("text.txt", fstream::in);
 
 	if (!fin.good()) {
-		cout << "File not found!";
+		cout << "File `text.txt` not found!";
 		return;
 	}
 
@@ -349,7 +356,7 @@ void task4_1() {
 
 	cout << "Sum: " << sum << endl;
 
-	cout << "Press any key to delete file" << endl;
+	cout << "Press any key to delete output file" << endl;
 
 	_getch();
 	remove("4_1.txt");
@@ -615,7 +622,6 @@ void task4_8() {
 }
 
 int fromNS(string numRaw, int sourceNS) {
-	//cout << "fromNS(num: " << numRaw << " NS: " << sourceNS << ")" << endl;
 	int num = 0;
 
 	for (int i = 0; i < numRaw.length(); i++) {
@@ -624,11 +630,9 @@ int fromNS(string numRaw, int sourceNS) {
 
 		if (c > 47 && c < 58) { // Numbers
 			cur = c - 48;
-			//cout << "[N]> toAdd = " << (c - 48) << " | cur = " << cur << endl;
 		}
 		else if (c > 64 && c < 91) { // Letters
 			cur = c - 55;
-			//cout << "[L]> toAdd = " << (c - 55) << " | cur = " << cur << endl;
 		}
 		else {
 			cout << "Found unsupported symbol: '" << static_cast<char>(c) << "'";
@@ -638,14 +642,10 @@ int fromNS(string numRaw, int sourceNS) {
 		num += cur * pow(sourceNS, numRaw.length() - 1 - i);
 	}
 
-	//cout << "fromNS(...) = " << num << endl;
-
 	return num;
 }
 
 string toNS(int num, int targetNS) {
-	//cout << "toNS(num: " << num << " NS: " << targetNS << ")" << endl;
-
 	if (num < 0)
 		return "";
 
@@ -656,11 +656,9 @@ string toNS(int num, int targetNS) {
 
 		if (rest >= 0 && rest <= 10) {
 			res = static_cast<char>(rest + 48) + res;
-			//cout << "[N]> toAdd = " << (rest + 48) << " | res = " << res << endl;
 		}
 		else if (rest >= 10 && rest <= 36) {
 			res = static_cast<char>(rest + 55) + res;
-			//cout << "[L]> toAdd = " << (rest + 55) << " | res = " << res << endl;
 		}
 		else {
 			cout << "Rest was too big while tried to convert to target NS: " << rest;
@@ -669,8 +667,6 @@ string toNS(int num, int targetNS) {
 
 		num = num / targetNS;
 	}
-
-	//cout << "toNS(...) = " << res << endl;
 
 	return res;
 }
@@ -771,14 +767,18 @@ void taskEratosthenes() {
 // Text files (12 and 13)
 
 void taskTextFiles() {
-	ofstream out("5_3.txt");
-	ifstream in("5_3.txt");
+	ofstream out("textFiles.txt");
 
 	out << "Cookies" << endl;
 	out << "Yay" << endl;
 
 	out.close();
+
+	cout << "File 'textFiles.txt' created" << endl;
+	cout << "Reading..." << endl;
 	
+	ifstream in("textFiles.txt");
+
 	string line;
 
 	while (getline(in, line)) {
@@ -786,6 +786,11 @@ void taskTextFiles() {
 	}
 
 	in.close();
+
+	cout << "Reading finished. Press any key to delete output file" << endl;
+
+	_getch();
+	remove("textFiles.txt");
 }
 
 int sumDigits(int num) {
@@ -939,6 +944,11 @@ void taskFiles() {
 	in.close();
 
 	cout << "Found " << amount << " strings with sorted characters";
+
+	cout << "Press any key to delete output file" << endl;
+
+	_getch();
+	remove("files.txt");
 }
 
 // Balls
@@ -978,6 +988,8 @@ void miraculousNumbers() {
 	cout << "> ";
 	
 	cin >> num;
+
+	cout << "Processing..." << endl;
 
 	cout << "Res: " << pressFToPayRespect(num);
 }

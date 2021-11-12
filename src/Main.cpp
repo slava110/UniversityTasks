@@ -54,7 +54,10 @@ void setupTasks() {
 	tasks["rows.2"] = taskRows2;
 	tasks["files"] = taskFiles;
 
+	// Additional
+
 	tasks["miraculousNums"] = miraculousNumbers;
+
 	tasks["spinners.1"] = spinners1;
 	tasks["spinners.2"] = spinners2;
 	tasks["spinners.3"] = spinners3;
@@ -78,14 +81,18 @@ int main() {
 
 	while (true) {
 		cout << "Hello! Welcome to UniversityTasks! I've created this program for my university course" << endl;
-		cout << "Use task id format '<task group>.<task id>' (example: '1.1' or '2.3')" << endl;
-		cout << "to test task with certain id or use 'exit' to exit program" << endl;
+		cout << " Use 'help' command to open help window (will just open README.txt file)" << endl;
+		cout << " Use task id to test task with certain id" << endl;
+		cout << " Use 'exit' to exit program" << endl;
 		cout << "> ";
 		
 		cin >> input;
 
 		if (input == "exit") {
 			break;
+		}
+		else if (input == "help") {
+			system("notepad \"..\\README.txt\"");
 		}
 		else {
 			if (tasks.find(input) != tasks.end()) { // if(map.contains(input)) but C++ style because C++ is garbage
@@ -100,7 +107,7 @@ int main() {
 				continue;
 			}
 			else {
-				cout << "Task with this id not found! Use valid task id next time!";
+				cout << "Task with this id not found! Use valid task id next time!" << endl;
 				_getch();
 			}
 		}

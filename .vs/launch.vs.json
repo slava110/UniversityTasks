@@ -1,0 +1,13 @@
+{
+  "version": "0.2.1",
+  "defaults": {},
+  "configurations": [
+    {
+      "type": "default",
+      "project": "src\\Main.cpp",
+      "projectTarget": "",
+      "name": "Main.cpp",
+      "currentDir": "run"
+    }
+  ]
+}
