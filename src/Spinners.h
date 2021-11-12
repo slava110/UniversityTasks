@@ -1,5 +1,11 @@
 #pragma once
 
+#include <string>
+#include <iostream>
+
+// Bad practice but fine for university tasks
+using namespace std;
+
 void spinners1() {
 	int baseCost, pCost, maxCost;
 	cout << "Enter A: ";

@@ -2,20 +2,19 @@
 
 #include <iostream>
 #include <string>
-#include <cmath>
 #include <fstream>
 #include <vector>
 #include <iomanip>
+//#include <cmath>
 //#include <limits>
-
-#include "Utils.h"
-#include "Spinners.h"
 
 
 // Bad practice but fine for university tasks
 using namespace std;
 
 //========== Actual code ==========
+
+double PI = 3.14159265358979323846;
 
 streamsize defaultPrecision = cout.precision();
 
@@ -377,22 +376,22 @@ void task4_2() {
 	cout << "Sign: " << getSign(num);
 }
 
-float recSq(float a, float b) {
+double recSq(double a, double b) {
 	return a * b;
 }
 
-float triSq(float a, float h) {
+double triSq(double a, double h) {
 	if (a == 0 || h == 0)
 		return 0;
 	return (a * h) / 2;
 }
 
-float cirSq(float r) {
+double cirSq(double r) {
 	return PI * r * r;
 }
 
 void task4_3() {
-	float a, b, h, r;
+	double a, b, h, r;
 
 	cout << "What do you want to calculate?" << endl;
 	cout << "Options: 1 (rectangle), 2 (triangle), 3 (circle)" << endl;
@@ -554,9 +553,9 @@ void task4_7() {
 }
 
 void task4_8() {
-	int A[3][4] = { {5, 2, 0, 10} ,{3, 5 , 2, 5} ,{20, 0 ,0, 0} };
-	int B[4][2] = { {1.2, 0.5}, {2.8, 0.4}, {5, 1}, {2, 1.5} };
-	int c[4][2] = {};
+	float A[3][4] = { {5, 2, 0, 10} ,{3, 5 , 2, 5} ,{20, 0 ,0, 0} };
+	float B[4][2] = { {1.2f, 0.5f}, {2.8f, 0.4f}, {5.0f, 1.0f}, {2.0f, 1.5f} };
+	float c[4][2] = {};
 
 	cout << "Result of multiplication:" << endl;
 
@@ -571,10 +570,10 @@ void task4_8() {
 		cout << "\n";
 	}
 	int i;
-	int max = 0;
+	float max = 0;
 	int v1 = 0;
 	int v2 = 0;
-	int min = 100;
+	float min = 100;
 	for (i = 0; i < 3; i++) {
 		if (c[i][0] > max) {
 			max = c[i][0];
@@ -608,12 +607,12 @@ void task4_8() {
 	cout << "2) Max comission: " << v1 << endl;
 	cout << "   Min comission: " << v2 << endl;
 
-	int sum1 = 0;
+	float sum1 = 0;
 	for (i = 0; i < 3; i++) {
 		sum1 += c[i][0];
 	}
 	cout << "3) Summary income: " << sum1 << endl;
-	int sum2 = 0;
+	float sum2 = 0;
 	for (i = 0; i < 3; i++) {
 		sum2 += c[i][1];
 	}
@@ -624,7 +623,7 @@ void task4_8() {
 int fromNS(string numRaw, int sourceNS) {
 	int num = 0;
 
-	for (int i = 0; i < numRaw.length(); i++) {
+	for (unsigned int i = 0; i < numRaw.length(); i++) {
 		int c = (int)numRaw[i];
 		int cur = 0;
 
@@ -639,7 +638,7 @@ int fromNS(string numRaw, int sourceNS) {
 			return -1;
 		}
 
-		num += cur * pow(sourceNS, numRaw.length() - 1 - i);
+		num += cur * (int) pow(sourceNS, numRaw.length() - 1 - i);
 	}
 
 	return num;
@@ -854,7 +853,7 @@ void taskRows2() {
 		sum += el;
 	}
 
-	float avHeight = sum / arr.size();
+	float avHeight = (float) sum / (float) arr.size();
 
 	cout << "Average height: " << avHeight << " cm" << endl;
 

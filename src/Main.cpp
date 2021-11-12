@@ -5,7 +5,6 @@
 
 #include "Tasks.h"
 #include "Spinners.h"
-#include "Utils.h"
 
 // Bad practice but fine for university tasks
 using namespace std;
