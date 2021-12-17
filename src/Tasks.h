@@ -952,25 +952,77 @@ void taskFiles() {
 
 // Balls
 
-void perestanovka(int ballsAmount, int *amount, int step) { // step = 0, 1, 2, 3 | max = 10, 9, 8
-	int max = ballsAmount - step;
-	for (int i = 0; i < max; i++) {
-		if (i == step + 1) {
-			*amount += 1;
-		}
-		else if(step != ballsAmount - 1) {
-			perestanovka(ballsAmount, amount, step + 1);
+//void perestanovka(int ballsAmount, int *amount, int step) { // step = 0, 1, 2, 3 | max = 10, 9, 8
+//	int max = ballsAmount - step;
+//	for (int i = 0; i < max; i++) {
+//		if (i == step + 1) {
+//			*amount += 1;
+//		}
+//		else if(step != ballsAmount - 1) {
+//			perestanovka(ballsAmount, amount, step + 1);
+//		}
+//	}
+//}
+//
+//void taskBalls() {
+//	int ballsAmount = 10, amount = 0;
+//
+//
+//	perestanovka(ballsAmount, &amount, 0);
+//
+//	cout << "Res: " << amount;
+//}
+
+unsigned factorial(unsigned n) {
+	return ((n > 1) ? n * factorial(n - 1) : n);
+}
+
+unsigned getMismatchCount(bool *select, unsigned n, unsigned step = 0) {
+	unsigned count = 0;
+	if (step >= n) {
+		count = 1;
+	}
+	else {
+		for (unsigned i = 0; i < n; i++) {
+			if ((i != step) && !select[i]) {
+				select[i] = true;
+				count += getMismatchCount(select, n, step + 1);
+				select[i] = false;
+			}
 		}
 	}
+
+	return count;
 }
 
 void taskBalls() {
-	int ballsAmount = 10, amount = 0;
+	unsigned n;
+	cout << "Enter N: ";
+	cin >> n;
+	bool *select = new bool[n];
 
-	perestanovka(ballsAmount, &amount, 0);
+	for (unsigned i = 0; i < n; i++) {
+		select[i] = false;
+	}
 
-	cout << "Res: " << amount;
+	cout << factorial(n) - getMismatchCount(select, n) << endl;
 }
+
+//void taskBalls() {
+//	int n;
+//	cout << "Enter N: ";
+//	cin >> n;
+//
+//	int i = 1;
+//	int[] balls = new int[10];
+//
+//	for (int i = 0; i < 10; i++)
+//		balls[i] = i;
+//
+//	perestanovka(balls, 1, n);
+//
+//	cout << "Res: " << amount;
+//}
 
 // Fibonnachi
 
